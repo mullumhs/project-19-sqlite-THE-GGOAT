@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="term-for-english">
+
+<h1>Movie Database</h1>
+
+<a href="/add">Add a New Movie</a>
+
+<table>
+
+    <tr>
+
+        <th>Title</th>
+
+        <th>Director</th>
+
+        <th>Year</th>
+
+        <th>Rating</th>
+
+    </tr>
+
+    {% for movie in movies %}
+
+    <tr>
+
+        <td>{{ movie['title'] }}</td>
+
+        <td>{{ movie['director'] }}</td>
+
+        <td>{{ movie['year'] }}</td>
+
+        <td>{{ movie['rating'] }}</td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
