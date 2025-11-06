@@ -11,13 +11,7 @@ def get_db_connection():
 
 
 
-@app.route('/')
-def index():
-    conn = get_db_connection()
-    movies = conn.execute('SELECT * FROM movies').fetchall()
-    conn.close()
 
-    return render_template('index.html', movies=movies)
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_movie():
@@ -40,19 +34,22 @@ def add_movie():
     return render_template('add.html')
 
 @app.route('/')
-
 def index():
-
     conn = get_db_connection()
-
     conn.row_factory = sqlite3.Row
-
     movies = conn.execute('SELECT * FROM movies').fetchall()
-
     conn.close()
-
     return render_template('index.html', movies=movies)
 
+@app.route("/search")
+def search_movie():
+    query = request.args.get("query", '')
+    conn = get_db_connection()
+    conn.row_factory = sqlite3.Row
+
+
+    movies = conn.execute('cool', ('%' + query + '%',)).fetchall()
+    return render_template('search.html', movies=movies, query=query)
 
 if __name__ == '__main__':
 
