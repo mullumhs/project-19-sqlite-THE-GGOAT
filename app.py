@@ -40,31 +40,30 @@ def index():
 
     return render_template('index.html', movies=movies)
 
-@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+@app.route('/add', methods=['GET', 'POST'])
 
-def edit_movie(id):
-
-    movie = Movie.query.get_or_404(id)
+def add_movie():
 
     if request.method == 'POST':
 
-        movie.title = request.form['title']
+        new_movie = Movie(
 
-        movie.director = request.form['director']
+            title=request.form['title'],
 
-        movie.year = int(request.form['year'])
+            director=request.form['director'],
 
-        movie.rating = float(request.form['rating'])
+            year=int(request.form['year']),
+
+            rating=float(request.form['rating'])
+
+        )
+
+        db.session.add(new_movie)
 
         db.session.commit()
 
         return redirect(url_for('index'))
 
-    return render_template('edit.html', movie=movie)
-
-
-    
-    # On visiting the page (GET)
     return render_template('add.html')
 
 
